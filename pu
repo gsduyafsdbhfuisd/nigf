@@ -1,0 +1,16 @@
+import marshal
+import zlib
+
+path = input("Путь до файла: ")
+with open(path, "r", encoding = 'utf-8') as y:
+    IlI = y.read()
+
+lIIlI = lambda in_ : marshal.dumps(compile(in_, '<string>', 'exec'))
+u = lIIlI(IlI)
+IllII = zlib.compress(u)
+IlIlI = marshal.dumps(IllII)
+payload = f"import marshal, zlib; IlIlI={IlIlI}; exec((marshal.loads(zlib.decompress(marshal.loads(IlIlI)))))"
+
+with open("output.py", "w", encoding = 'utf-8') as d:
+    d.write(payload)
+    
